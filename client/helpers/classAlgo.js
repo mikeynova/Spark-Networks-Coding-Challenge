@@ -5,7 +5,7 @@ import * as actions from '../actions/addClassListAction.js';
 
 function classAlgo(e) {
 		if(e === '') {
-			return 'Empty textbox'
+			return 'Empty textbox';
 		}
 		let splitByLineBreak = e.replace(/(?:\r\n|\r|\n)/g, ',')
 		let nestedArray = splitByLineBreak.split(',');
@@ -18,7 +18,7 @@ function classAlgo(e) {
 
 		noWhiteSpace.forEach(function(word) {
 			if(word.length < 2) {
-				word[0] = word[0].replace(/[:]/g, '')
+				word[0] = word[0].replace(/[:]/g, '');
 			}
 		})
 		
@@ -80,22 +80,27 @@ function classAlgo(e) {
 
 		function addToTree(array, num) {
 			let counter = num
+			let noActivity = true;
 			while(array.length >= 1) {
-				if(counter === 1 && array.length === 1) {
-					tree.traverse(array[0][1], array[0][0])
-					array.splice(0, 1)
-				}	else if (counter === array.length -1){
-						addToTree(array, 0)
-				} else if (tree.contains(array[counter][1])) {
+				if(counter <= 1 && array.length == 1) {
+					if(!tree.children.length) {
+						tree.addChild(array[counter][1])
+					} else {
+							tree.traverse(array[0][1], array[0][0])
+							array.splice(0, 1)
+					}
+				} else if(counter === array.length -1) {
+						addToTree(array, 0) 
+				} else if(tree.contains(array[counter][1])) {
 						tree.traverse(array[counter][1], array[counter][0])
-						array.splice([counter], 1)
-					counter++
-				} else if (!tree.children.length) {
+						array.splice(counter, 1)
+						counter++
+				} else if(!tree.children.length) {
 						tree.addChild(array[counter][1])
 				} else {
 						counter++
 				}
-			}
+			}	
 		}
 
 		addToTree(noWhiteSpace, 0)
@@ -114,15 +119,15 @@ function classAlgo(e) {
 					}
 				} else if(Array.isArray(node)) {
 						if(node[0].children.length) {
-							output.push(node[0].value)								
+							output.push(node[0].value)
 							checkTarget(node[0].children)
 						} else if(!node[0].children.length) {
-							output.push(node[0].value)
+								output.push(node[0].value)
 						}
 				} else if(node.children.length){
-					checkTarget(node.children)
+						checkTarget(node.children)
 				} else if(!node.children.length){
-					output.push(node.value)
+						output.push(node.value)
 				}
 	    }
 		  checkTarget(tree.children);
@@ -139,19 +144,17 @@ function classAlgo(e) {
 				if(!obj[output[i]]) {
 					obj[output[i]] = 1
 				} else {
-					flag = false
+						flag = false
 				}
 			}
 			if(flag) {
 				browserHistory.push('/showclasses')
 				finalResult = output.join(', ')
 				dispatch(actions.addClassList('Good input: ' + finalResult));
-				// alert("Good input: " + output.join(', '))
 			} else {
-				browserHistory.push('/showclasses')
-				finalResult = output.join(', ')
-				dispatch(actions.addClassList('Bad input: ' + finalResult));
-				// alert("Bad input: " + output.join(', '))
+					browserHistory.push('/showclasses')
+					finalResult = output.join(', ')
+					dispatch(actions.addClassList('Bad input: ' + finalResult));
 			}
 		}
 		return finalResult
