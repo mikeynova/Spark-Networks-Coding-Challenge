@@ -1,0 +1,25 @@
+body {
+	background-color: white;
+	font-family: 'Press Start 2P', cursive;
+}
+
+#container {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 40%;
+	text-align: center;
+}
+
+#classesContainer {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 40%;
+	text-align: center;
+}
+
+#textbox {
+  width: 600px;
+  height: 200px;
+}
