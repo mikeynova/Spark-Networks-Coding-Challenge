@@ -1,8 +1,8 @@
-import { ADD_CLASS_LIST } from '../actions/addClassListAction.js';
+import { SET_SUMMONER_RANK } from '../actions/summonerActions.js';
 
 export default (state = 'original state', action) => {
   switch(action.type) {
-    case ADD_CLASS_LIST:
+    case SET_SUMMONER_RANK:
       return action.payload;
   };
   return state;
