@@ -14,7 +14,7 @@ app.use(sassMiddleware({
   dest: __dirname + '/../client/dist',
   debug: true,
   outputStyle: 'compressed',
-  prefix: '/style'
+  prefix: '/dist'
 }));
 
 app.use(express.static(__dirname + '/../client'));

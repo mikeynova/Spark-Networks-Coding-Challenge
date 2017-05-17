@@ -18,7 +18,6 @@ class Summoner extends Component {
 		spinner.classList.add('active')
 		axios.post('/findSummonerID', [this.state.summonerName])
 		.then((response) => {
-			console.log(response)
 			if(response.data === 'no summoner') {
 				let spinner = document.getElementsByClassName("spinner")[0];
 				spinner.classList.remove('active');

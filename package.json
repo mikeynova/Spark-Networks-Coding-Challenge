@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./server/server.js",
+    "start": "concurrently \"webpack -d --watch\" \"nodemon ./server/server.js\"",
     "test": "jest"
   },
   "author": "Michael Terranova",
