@@ -1,20 +1,24 @@
-const path = require('path');
-process.noDeprecation = true
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-	entry: './client/index.js',
-	output: {
-		path: path.resolve(__dirname, './client/dist'),
-		filename: 'bundle.js'
-	},
-	module: {
-		loaders: [
-			{
-				test: /\.js$/, 
-				exclude: '/node_modules',
-				loader: 'babel-loader',
-				query: { presets: ['es2015', 'react'] }
-			}
-		]
-	}
+  entry: ['webpack-hot-middleware/client', './src/index.js'],
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+  },
+  devtool: 'cheap-module-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+    ],
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 }
