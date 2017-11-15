@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react'
+import Summoner from './show-summoner.jsx'
 
-export default class App extends Component {
-	render() {
-		return (
-			<div>
-				{this.props.children}
-			</div>
-		)
-	}
-}
+const App = () => (
+  <div>
+    <Summoner/>
+  </div>
+)
+
+export default App

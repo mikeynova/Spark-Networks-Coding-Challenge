@@ -6,6 +6,7 @@ const webpack = require('webpack')
 
 const app = express()
 const config = require('../webpack.config')
+const summonerRoutes = require('./routes/summoner-routes')
 
 const compiler = webpack(config)
 app.use(bodyParser.json())
@@ -21,26 +22,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }))
 app.use(require('webpack-hot-middleware')(compiler))
 
-app.get('/matches', (req, res) => {
-  axios({
-    url: '/216331742',
-    method: 'get',
-    baseURL: 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/',
-    headers: {
-      'X-Riot-Token': 'RGAPI-ea6bffc4-ebea-42f7-a0b6-5a65f4c6f2fe',
-    },
-  })
-  .then(response => {
-    res.send(response.data)
-  })
-})
+app.use('/summonerInfo', summonerRoutes)
 
 app.post('/mostPlayedChampGames', (req, res) => {
   axios({
     url: 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/' + req.body[0] + '?champion=' + req.body[1],
     method: 'get',
     headers: {
-      'X-Riot-Token': 'RGAPI-ea6bffc4-ebea-42f7-a0b6-5a65f4c6f2fe',
+      'X-Riot-Token': 'RGAPI-2a10a512-9db7-41aa-93f6-f71ff7c52ae0',
     },
   })
   .then(response => {
@@ -54,38 +43,7 @@ app.post('/getMostPlayedChamp', (req, res) => {
     baseURL: 'https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/',
     method: 'get',
     headers: {
-      'X-Riot-Token': 'RGAPI-ea6bffc4-ebea-42f7-a0b6-5a65f4c6f2fe',
-    },
-  })
-  .then(response => {
-    res.send(response.data)
-  })
-})
-
-app.post('/findSummonerID', (req, res) => {
-  axios({
-    url: req.body[0],
-    baseURL: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/',
-    method: 'get',
-    headers: {
-      'X-Riot-Token': 'RGAPI-ea6bffc4-ebea-42f7-a0b6-5a65f4c6f2fe',
-    },
-  })
-  .then(response => {
-    res.send(response.data)
-  })
-  .catch(err => {
-    console.log('error in /findSummonerID request: ', err)
-    res.send('no summoner')
-  })
-})
-
-app.get('/getProfileIcon', (req, res) => {
-  axios({
-    url: 'https://na1.api.riotgames.com/lol/static-data/v3/profile-icons',
-    method: 'get',
-    headers: {
-      'X-Riot-Token': 'RGAPI-ea6bffc4-ebea-42f7-a0b6-5a65f4c6f2fe',
+      'X-Riot-Token': 'RGAPI-2a10a512-9db7-41aa-93f6-f71ff7c52ae0',
     },
   })
   .then(response => {
@@ -99,20 +57,7 @@ app.post('/getMostPlayedChampPic', (req, res) => {
     method: 'get',
     baseURL: 'https://na1.api.riotgames.com/lol/static-data/v3/champions/',
     headers: {
-      'X-Riot-Token': 'RGAPI-ea6bffc4-ebea-42f7-a0b6-5a65f4c6f2fe',
-    },
-  })
-  .then(response => {
-    res.send(response.data)
-  })
-})
-
-app.post('/getRank', (req, res) => {
-  axios({
-    url: 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/' + req.body[0],
-    method: 'get',
-    headers: {
-      'X-Riot-Token': 'RGAPI-ea6bffc4-ebea-42f7-a0b6-5a65f4c6f2fe',
+      'X-Riot-Token': 'RGAPI-2a10a512-9db7-41aa-93f6-f71ff7c52ae0',
     },
   })
   .then(response => {
